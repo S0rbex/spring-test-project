@@ -1,10 +1,8 @@
 package vitalitus.springtestproject.repository;
 
-import org.springframework.stereotype.Repository;
-import vitalitus.springtestproject.model.Book;
 import java.util.List;
+import vitalitus.springtestproject.model.Book;
 
-@Repository
 public interface BookRepository {
     Book save(Book book);
 

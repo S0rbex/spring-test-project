@@ -1,12 +1,11 @@
 package vitalitus.springtestproject.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.repository.BookRepository;
 import vitalitus.springtestproject.service.BookService;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

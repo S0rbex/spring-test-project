@@ -1,13 +1,12 @@
 package vitalitus.springtestproject;
 
+import java.math.BigDecimal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.repository.BookRepository;
-
-import java.math.BigDecimal;
 
 @SpringBootApplication
 public class SpringTestProjectApplication {
@@ -22,7 +21,7 @@ public class SpringTestProjectApplication {
             Book book = new Book();
             book.setTitle("Clean Code");
             book.setAuthor("Robert C. Martin");
-            book.setIsbn("978-0132350884");
+            book.setIsbn("978-0132354884");
             book.setPrice(new BigDecimal("45.50"));
             repository.save(book);
 
