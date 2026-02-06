@@ -11,6 +11,9 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Entity
+@Getter
+@Setter
+@Table(name = "books")
 @Data
 public class Book {
     @Id
