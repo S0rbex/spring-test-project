@@ -1,7 +1,6 @@
 package vitalitus.springtestproject.repository.impl;
 
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,10 +46,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> findAll() {
         try (var session = entityManagerFactory.unwrap(SessionFactory.class).openSession()) {
-            CriteriaQuery<Book> criteriaQuery = session.getCriteriaBuilder()
-                    .createQuery(Book.class);
-            criteriaQuery.from(Book.class);
-            return session.createQuery(criteriaQuery).getResultList();
+            return session.createQuery("from Book b", Book.class).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can`t get all books");
         }
