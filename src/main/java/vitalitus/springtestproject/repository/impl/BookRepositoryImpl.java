@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vitalitus.springtestproject.exception.DataProcessingException;
+import vitalitus.springtestproject.exception.EntityNotFoundException;
 import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.repository.BookRepository;
 
@@ -48,7 +49,16 @@ public class BookRepositoryImpl implements BookRepository {
         try (var session = entityManagerFactory.unwrap(SessionFactory.class).openSession()) {
             return session.createQuery("from Book b", Book.class).getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Can`t get all books");
+            throw new EntityNotFoundException("Can`t get all books");
+        }
+    }
+
+    @Override
+    public Book getBookById(Long id) {
+        try (var session = entityManagerFactory.unwrap(SessionFactory.class).openSession()) {
+            return session.get(Book.class, id);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Can`t get book by this id:" + id);
         }
     }
 }
