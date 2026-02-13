@@ -1,10 +1,13 @@
 package vitalitus.springtestproject.service;
 
 import java.util.List;
-import vitalitus.springtestproject.model.Book;
+import vitalitus.springtestproject.dto.BookDto;
+import vitalitus.springtestproject.dto.CreateBookRequestDto;
 
 public interface BookService {
-    Book save(Book book);
+    BookDto save(CreateBookRequestDto requestDto);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
+
+    BookDto getBookById(Long id);
 }
