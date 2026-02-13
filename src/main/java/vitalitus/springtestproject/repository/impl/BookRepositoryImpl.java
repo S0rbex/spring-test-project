@@ -58,7 +58,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (var session = entityManagerFactory.unwrap(SessionFactory.class).openSession()) {
             return session.get(Book.class, id);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Can`t get book by this id:" + id);
+            throw new DataProcessingException("Can`t get book by this id:" + id);
         }
     }
 }
