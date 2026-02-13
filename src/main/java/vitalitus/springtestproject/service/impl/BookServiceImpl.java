@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
+import vitalitus.springtestproject.exception.EntityNotFoundException;
 import vitalitus.springtestproject.mapper.BookMapper;
 import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.repository.BookRepository;
@@ -35,6 +36,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        return bookMapper.toDto(bookRepository.getBookById(id));
+        Book book = bookRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can't find book by id: " + id)
+        );
+        return bookMapper.toDto(book);
     }
 }
