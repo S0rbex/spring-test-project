@@ -7,7 +7,6 @@ import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.model.Book;
 
-@Component
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
     BookDto toDto(Book book);
