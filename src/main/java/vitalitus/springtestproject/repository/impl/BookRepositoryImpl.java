@@ -2,6 +2,7 @@ package vitalitus.springtestproject.repository.impl;
 
 import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -49,6 +50,16 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery("from Book b", Book.class).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can`t get all books");
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (var session = entityManagerFactory.unwrap(SessionFactory.class).openSession()) {
+            Book book = session.get(Book.class, id);
+            return Optional.ofNullable(book);
+        } catch (Exception e) {
+            throw new DataProcessingException("Can`t get book by this id:" + id);
         }
     }
 }
