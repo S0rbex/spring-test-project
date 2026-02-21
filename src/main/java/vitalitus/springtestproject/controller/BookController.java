@@ -3,6 +3,8 @@ package vitalitus.springtestproject.controller;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
+import vitalitus.springtestproject.repository.book.BookSearchParameters;
 import vitalitus.springtestproject.service.BookService;
 
 @AllArgsConstructor
@@ -51,5 +54,10 @@ public class BookController {
     public BookDto update(@PathVariable Long id,
                           @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.updateBook(id, requestDto);
+    }
+
+    @GetMapping("/search")
+    public Page<BookDto> search(BookSearchParameters bookSearchParameters, Pageable pageable) {
+        return bookService.search(bookSearchParameters, pageable);
     }
 }
