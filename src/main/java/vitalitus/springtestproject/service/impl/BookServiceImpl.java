@@ -2,13 +2,18 @@ package vitalitus.springtestproject.service.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.exception.EntityNotFoundException;
 import vitalitus.springtestproject.mapper.BookMapper;
 import vitalitus.springtestproject.model.Book;
-import vitalitus.springtestproject.repository.BookRepository;
+import vitalitus.springtestproject.repository.book.BookRepository;
+import vitalitus.springtestproject.repository.book.BookSearchParameters;
+import vitalitus.springtestproject.repository.book.BookSpecificationBuilder;
 import vitalitus.springtestproject.service.BookService;
 
 @Service
@@ -18,6 +23,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -57,4 +63,12 @@ public class BookServiceImpl implements BookService {
         bookMapper.updateBookFromDto(createBookRequestDto, book);
         return bookMapper.toDto(bookRepository.save(book));
     }
+
+    @Override
+    public Page<BookDto> search(BookSearchParameters params, Pageable pageable) {
+        Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
+
+        return bookRepository.findAll(bookSpecification, pageable).map(bookMapper::toDto);
+    }
+
 }
