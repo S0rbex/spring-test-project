@@ -3,7 +3,6 @@ package vitalitus.springtestproject.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -67,7 +66,8 @@ public class BookController {
 
     @GetMapping("/search")
     @Operation(summary = "Search book with filter", description = "Find book with some filter")
-    public Page<BookDto> search(@ParameterObject BookSearchParameters bookSearchParameters, @ParameterObject Pageable pageable) {
+    public Page<BookDto> search(@ParameterObject BookSearchParameters bookSearchParameters,
+                                @ParameterObject Pageable pageable) {
         return bookService.search(bookSearchParameters, pageable);
     }
 }
