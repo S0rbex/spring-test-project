@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -34,6 +35,19 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
         body.put("errors", errors);
         return new ResponseEntity<>(body, headers, status);
+    }
+
+    protected ResponseEntity<Object> handleRegistrationException(
+            RegistrationException ex,
+            HttpHeaders headers,
+            HttpStatusCode statusCode,
+            WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", statusCode.value());
+        body.put("error", "Registration failed");
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     private String getErrorMessage(FieldError e) {
