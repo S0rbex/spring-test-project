@@ -3,7 +3,25 @@ databaseChangeLog:
       id: assign-admin-role
       author: S0rbex
       changes:
-        - insert:
+         - insert:
+              tableName: users
+              columns:
+                - column:
+                    name: email
+                    value: 'admin@test.com'
+                - column:
+                    name: password
+                    value: '$2a$10$vMwYk8P.L/9g1L1zHq1F.e.zP8T0mB8k/7q0/1wP6j/9q1/1wP6j/9'
+                - column:
+                    name: first_name
+                    value: 'Super'
+                - column:
+                    name: last_name
+                    value: 'Admin'
+                - column:
+                    name: is_deleted
+                    valueBoolean: false
+         - insert:
             tableName: users_roles
             columns:
               - column:
