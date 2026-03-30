@@ -11,12 +11,11 @@ import vitalitus.springtestproject.repository.user.UserRepository;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository
-                .findByEmail(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException
-                                ("Can`t find user with this email: " + username));
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "Can`t find user with this email: " + username));
     }
 }

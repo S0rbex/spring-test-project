@@ -1,5 +1,6 @@
 package vitalitus.springtestproject.service.impl;
 
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import vitalitus.springtestproject.model.User;
 import vitalitus.springtestproject.repository.role.RoleRepository;
 import vitalitus.springtestproject.repository.user.UserRepository;
 import vitalitus.springtestproject.service.AuthenticationService;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

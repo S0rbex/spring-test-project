@@ -19,10 +19,12 @@ public class Role implements GrantedAuthority {
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private RoleName name;
+
     @Override
     public String getAuthority() {
         return name.name();
     }
+
     public enum RoleName {
         ROLE_USER,
         ROLE_ADMIN

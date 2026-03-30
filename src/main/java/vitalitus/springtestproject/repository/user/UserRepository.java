@@ -1,8 +1,8 @@
 package vitalitus.springtestproject.repository.user;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import vitalitus.springtestproject.model.User;
-import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
