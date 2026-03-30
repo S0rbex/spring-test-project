@@ -8,6 +8,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,18 +31,21 @@ public class BookController {
 
     private final BookService bookService;
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     @Operation(summary = "Get all books", description = "Get all products from DB")
     public Page<BookDto> getAll(@ParameterObject Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "Get book by id", description = "Get book by id from DB")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Operation for creating book", description = "Create book, and add in DB")
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,6 +53,7 @@ public class BookController {
         return bookService.save(bookDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Operation delete book", description = "Delete book from DB by id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -56,6 +61,7 @@ public class BookController {
         bookService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update book", description = "Update book by all fields in DB")
     @ResponseStatus(HttpStatus.OK)
@@ -64,6 +70,7 @@ public class BookController {
         return bookService.updateBook(id, requestDto);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/search")
     @Operation(summary = "Search book with filter", description = "Find book with some filter")
     public Page<BookDto> search(@ParameterObject BookSearchParameters bookSearchParameters,
