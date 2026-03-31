@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: assign-admin-role
       author: S0rbex
+      validCheckSum: 9:ff2fb8ff5139dc9dbab12f828f099334
       changes:
          - insert:
               tableName: users

@@ -4,6 +4,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vitalitus.springtestproject.dto.CreateUserRequestDto;
 import vitalitus.springtestproject.dto.UserDto;
 import vitalitus.springtestproject.exception.RegistrationException;
@@ -26,7 +27,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserDto registrationUser(CreateUserRequestDto userRequestDto) {
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-            throw new RegistrationException("This email is already registered, try to login");
+            throw new RegistrationException("This email "
+                    + userRequestDto.getEmail() + " is already registered, try to login");
         }
         User user = userMapper.toModel(userRequestDto);
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
