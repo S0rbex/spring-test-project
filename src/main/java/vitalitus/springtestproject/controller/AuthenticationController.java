@@ -15,7 +15,7 @@ import vitalitus.springtestproject.service.AuthenticationService;
 @Tag(name = "User authentication", description = "Endpoints for authentication user")
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
