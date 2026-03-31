@@ -15,6 +15,7 @@ import vitalitus.springtestproject.repository.user.UserRepository;
 import vitalitus.springtestproject.service.AuthenticationService;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
