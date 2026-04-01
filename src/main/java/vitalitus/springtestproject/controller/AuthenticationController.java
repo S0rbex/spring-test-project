@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vitalitus.springtestproject.dto.CreateUserRequestDto;
 import vitalitus.springtestproject.dto.UserDto;
+import vitalitus.springtestproject.dto.UserLoginRequestDto;
+import vitalitus.springtestproject.dto.UserLoginResponseDto;
 import vitalitus.springtestproject.exception.RegistrationException;
 import vitalitus.springtestproject.service.AuthenticationService;
 
@@ -17,7 +19,7 @@ import vitalitus.springtestproject.service.AuthenticationService;
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Authentication",
-        description = "Endpoint for managing authentication and registration")
+        description = "Endpoint for managing authentication, registration and login")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -26,5 +28,11 @@ public class AuthenticationController {
             @RequestBody @Valid CreateUserRequestDto request) throws RegistrationException {
 
         return authenticationService.registrationUser(request);
+    }
+
+    @PostMapping("/login")
+    public UserLoginResponseDto login(@RequestBody @Valid
+                                           UserLoginRequestDto requestDto) {
+        return authenticationService.loginUser(requestDto);
     }
 }
