@@ -2,11 +2,16 @@ package vitalitus.springtestproject.service.impl;
 
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vitalitus.springtestproject.dto.CreateUserRequestDto;
 import vitalitus.springtestproject.dto.UserDto;
+import vitalitus.springtestproject.dto.UserLoginRequestDto;
+import vitalitus.springtestproject.dto.UserLoginResponseDto;
 import vitalitus.springtestproject.exception.RegistrationException;
 import vitalitus.springtestproject.mapper.UserMapper;
 import vitalitus.springtestproject.model.Role;
@@ -14,6 +19,7 @@ import vitalitus.springtestproject.model.User;
 import vitalitus.springtestproject.repository.role.RoleRepository;
 import vitalitus.springtestproject.repository.user.UserRepository;
 import vitalitus.springtestproject.service.AuthenticationService;
+import vitalitus.springtestproject.util.JwtUtil;
 
 @Service
 @Transactional
@@ -23,6 +29,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
     @Override
     public UserDto registrationUser(CreateUserRequestDto userRequestDto) {
@@ -36,5 +44,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setRoles(Set.of(userRole));
         userRepository.save(user);
         return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserLoginResponseDto loginUser(UserLoginRequestDto userLoginRequestDto) {
+        Authentication authentication = authenticationManager
+                .authenticate(
+                new UsernamePasswordAuthenticationToken(userLoginRequestDto.getEmail(),
+                        userLoginRequestDto.getPassword())
+        );
+        String token = jwtUtil.generateToken(authentication.getName());
+        return new UserLoginResponseDto(token);
     }
 }
