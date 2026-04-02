@@ -1,5 +1,7 @@
 package vitalitus.springtestproject.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,11 @@ import vitalitus.springtestproject.service.AuthenticationService;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
+    @Operation(
+            summary = "Register a new user",
+            description = "Creates a new user account based on the provided registration details."
+    )
+    @ApiResponse(responseCode = "200", description = "User successfully registered")
     @PostMapping("/registration")
     public UserDto register(
             @RequestBody @Valid CreateUserRequestDto request) throws RegistrationException {
