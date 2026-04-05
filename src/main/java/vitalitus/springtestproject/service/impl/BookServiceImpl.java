@@ -1,11 +1,14 @@
 package vitalitus.springtestproject.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vitalitus.springtestproject.dto.BookDto;
+import vitalitus.springtestproject.dto.BookDtoWithoutCategoryIds;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.exception.EntityNotFoundException;
 import vitalitus.springtestproject.mapper.BookMapper;
@@ -66,4 +69,10 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll(bookSpecification, pageable).map(bookMapper::toDto);
     }
 
+    @Override
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id) {
+        return bookRepository.findAllByCategoriesId(id).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .collect(Collectors.toList());
+    }
 }
