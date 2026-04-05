@@ -1,26 +1,28 @@
-Spring Test Project
-Тестовий проєкт для розробки та закріплення навичок роботи зі Spring Framework.
+# 🍃 Spring Test Project
 
-Технології
+Тестовий проєкт для розробки та закріплення навичок роботи зі **Spring Framework**.
 
-Java
+## 🛠 Технології
 
-Spring Boot
+* **Мова:** Java
+* **Фреймворк:** Spring Boot
+* **База даних / ORM:** Spring Data JPA / Hibernate
+* **Збірка:** Maven
 
-Spring Data JPA / Hibernate
+## 🚀 Як запустити локально
 
-Maven
+1. **Зклонуй репозиторій:**
+   ```bash
+   git clone [https://github.com/S0rbex/spring-test-project.git](https://github.com/S0rbex/spring-test-project.git)
+Перейди в директорію проєкту:
 
-Як запустити локально
+Bash
+cd spring-test-project
+Збери та запусти проєкт:
 
-Зклонуй репозиторій: git clone https://github.com/S0rbex/spring-test-project.git
-
-Перейди в директорію проєкту: cd spring-test-project
-
-Збери та запусти проєкт: ./mvnw spring-boot:run
-
-Структура
-
+Bash
+./mvnw spring-boot:run
+📂 Структура проєкту
 src/main/java — основний код (контролери, сервіси, репозиторії).
 
 src/main/resources — конфігурації (application.properties).
