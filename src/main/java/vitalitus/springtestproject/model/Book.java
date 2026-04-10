@@ -42,7 +42,7 @@ public class Book {
     private boolean isDeleted = false;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_category",
+            name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
