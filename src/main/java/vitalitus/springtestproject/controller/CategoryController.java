@@ -25,7 +25,7 @@ import vitalitus.springtestproject.service.CategoryService;
 
 @Tag(name = "Category management", description = "Endpoints for managing categories")
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
