@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,7 +49,7 @@ public class CategoryController {
             description = "Retrieve a list of all available categories."
     )
     @GetMapping
-    public List<CategoryDto> getAll(Pageable pageable) {
+    public Page<CategoryDto> getAll(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
