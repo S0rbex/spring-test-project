@@ -87,7 +87,8 @@ public class BookServiceImpl implements BookService {
         if (categoryIds != null && !categoryIds.isEmpty()) {
             List<Category> categories = categoryRepository.findAllById(categoryIds);
             if (categories.size() != categoryIds.size()) {
-                throw new EntityNotFoundException("One or more categories not found by provided IDs");
+                throw new EntityNotFoundException("One or more categories "
+                        + "not found by provided IDs");
             }
             book.setCategories(new HashSet<>(categories));
         } else {
