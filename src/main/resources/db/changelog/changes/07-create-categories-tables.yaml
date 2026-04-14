@@ -33,7 +33,7 @@ databaseChangeLog:
       author: your-name
       changes:
         - createTable:
-            tableName: book_category
+            tableName: books_categories
             columns:
               - column:
                   name: book_id
