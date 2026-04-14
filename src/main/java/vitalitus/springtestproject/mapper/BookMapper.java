@@ -1,8 +1,6 @@
 package vitalitus.springtestproject.mapper;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -12,7 +10,6 @@ import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.BookDtoWithoutCategoryIds;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.model.Book;
-import vitalitus.springtestproject.model.Category;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {

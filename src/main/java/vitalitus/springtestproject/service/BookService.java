@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.BookDtoWithoutCategoryIds;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
-import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.repository.book.BookSearchParameters;
 
 public interface BookService {
