@@ -1,5 +1,7 @@
 package vitalitus.springtestproject.service.impl;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +15,11 @@ import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.exception.EntityNotFoundException;
 import vitalitus.springtestproject.mapper.BookMapper;
 import vitalitus.springtestproject.model.Book;
+import vitalitus.springtestproject.model.Category;
 import vitalitus.springtestproject.repository.book.BookRepository;
 import vitalitus.springtestproject.repository.book.BookSearchParameters;
 import vitalitus.springtestproject.repository.book.BookSpecificationBuilder;
+import vitalitus.springtestproject.repository.category.CategoryRepository;
 import vitalitus.springtestproject.service.BookService;
 
 @Service
@@ -25,10 +29,12 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
+        setCategoriesToBook(book, requestDto.getCategoryIds());
         bookRepository.save(book);
         return bookMapper.toDto(book);
     }
@@ -59,6 +65,7 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can`t find book with this id: " + id));
         bookMapper.updateBookFromDto(createBookRequestDto, book);
+        setCategoriesToBook(book, createBookRequestDto.getCategoryIds());
         return bookMapper.toDto(bookRepository.save(book));
     }
 
@@ -74,5 +81,17 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAllByCategoriesId(id).stream()
                 .map(bookMapper::toDtoWithoutCategories)
                 .collect(Collectors.toList());
+    }
+
+    private void setCategoriesToBook(Book book, List<Long> categoryIds) {
+        if (categoryIds != null && !categoryIds.isEmpty()) {
+            List<Category> categories = categoryRepository.findAllById(categoryIds);
+            if (categories.size() != categoryIds.size()) {
+                throw new EntityNotFoundException("One or more categories not found by provided IDs");
+            }
+            book.setCategories(new HashSet<>(categories));
+        } else {
+            book.setCategories(Collections.emptySet());
+        }
     }
 }
