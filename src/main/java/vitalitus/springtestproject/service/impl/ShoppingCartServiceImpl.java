@@ -66,10 +66,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new EntityNotFoundException("Cart item not found"));
 
-        if (!cartItem.getShoppingCart().getId().equals(cartEntity.getId())) {
-            throw new InvalidCartOperationExcpetion("You can't update item from another cart");
-        }
-
         cartItem.setQuantity(requestDto.getQuantity());
         return shoppingCartMapper.toDto(cartEntity);
     }
