@@ -22,7 +22,7 @@ import vitalitus.springtestproject.service.ShoppingCartService;
 
 @Tag(name = "Shopping cart management", description = "Endpoints for managing user's shopping cart")
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/cart")
 @RequiredArgsConstructor
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
