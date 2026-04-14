@@ -13,7 +13,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "categories")
