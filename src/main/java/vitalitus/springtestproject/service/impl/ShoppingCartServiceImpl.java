@@ -7,6 +7,7 @@ import vitalitus.springtestproject.dto.cart.AddToCartRequestDto;
 import vitalitus.springtestproject.dto.cart.ShoppingCartDto;
 import vitalitus.springtestproject.dto.cart.UpdateCartItemRequestDto;
 import vitalitus.springtestproject.exception.EntityNotFoundException;
+import vitalitus.springtestproject.exception.InvalidCartOperationExcpetion;
 import vitalitus.springtestproject.mapper.ShoppingCartMapper;
 import vitalitus.springtestproject.model.Book;
 import vitalitus.springtestproject.model.CartItem;
@@ -66,7 +67,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .orElseThrow(() -> new EntityNotFoundException("Cart item not found"));
 
         if (!cartItem.getShoppingCart().getId().equals(cartEntity.getId())) {
-            throw new RuntimeException("You can't update item from another cart");
+            throw new InvalidCartOperationExcpetion("You can't update item from another cart");
         }
 
         cartItem.setQuantity(requestDto.getQuantity());
