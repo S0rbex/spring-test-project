@@ -24,7 +24,7 @@ databaseChangeLog:
                     type: TINYINT(1)
                     defaultValueBoolean: false
          - createTable:
-              tableName: cart_item
+              tableName: cart_items
               columns:
                 - column:
                     name: id
