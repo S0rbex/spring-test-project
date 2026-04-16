@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-order-item
+      author: S0rbex
+      changes:
+          - createTable:
+              tableName: orders
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: user_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_orders_user_id
+                      referencedTableName: users
+                      referencedColumnNames: id
+                - column:
+                    name: status
+                    type: VARCHAR(50)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: total
+                    type: DECIMAL(10, 2)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: order_date
+                    type: TIMESTAMP
+                    constraints:
+                      nullable: false
+                - column:
+                    name: shipping_address
+                    type: VARCHAR(255)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: is_deleted
+                    type: TINYINT(1)
+                    defaultValueBoolean: false
+                    constraints:
+                      nullable: false
+          - createTable:
+              tableName: order_items
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                - column:
+                    name: order_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_order_items_order_id
+                      referencedTableName: orders
+                      referencedColumnNames: id
+                - column:
+                    name: book_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_order_items_book_id
+                      referencedTableName: books
+                      referencedColumnNames: id
+                - column:
+                    name: quantity
+                    type: int
+                    constraints:
+                      nullable: false
+                - column:
+                    name: price
+                    type: DECIMAL(10,2)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: is_deleted
+                    type: TINYINT(1)
+                    defaultValueBoolean: false
+                    constraints:
+                      nullable: false
