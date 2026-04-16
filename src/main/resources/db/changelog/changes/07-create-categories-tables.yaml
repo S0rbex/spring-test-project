@@ -18,6 +18,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: description
                   type: VARCHAR(255)
@@ -33,7 +34,7 @@ databaseChangeLog:
       author: your-name
       changes:
         - createTable:
-            tableName: book_category
+            tableName: books_categories
             columns:
               - column:
                   name: book_id

@@ -2,7 +2,6 @@ package vitalitus.springtestproject.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,7 +39,7 @@ public class Book {
     private String coverImage;
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private boolean isDeleted = false;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "book_category",
             joinColumns = @JoinColumn(name = "book_id"),
