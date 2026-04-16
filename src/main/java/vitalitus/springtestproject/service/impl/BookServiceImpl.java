@@ -30,7 +30,6 @@ public class BookServiceImpl implements BookService {
     private final CategoryRepository categoryRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
-    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {

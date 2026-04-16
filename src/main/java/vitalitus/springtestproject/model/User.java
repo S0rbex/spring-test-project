@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE users SET is_deleted = true where id =?")
-@SQLRestriction(value = "is_deleted = false")
+@SQLRestriction("is_deleted = false")
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
@@ -56,5 +56,25 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

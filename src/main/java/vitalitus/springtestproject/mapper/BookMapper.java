@@ -12,6 +12,7 @@ import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.BookDtoWithoutCategoryIds;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.model.Book;
+import vitalitus.springtestproject.model.Category;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
