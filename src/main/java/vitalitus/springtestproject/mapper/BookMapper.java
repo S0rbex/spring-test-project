@@ -1,6 +1,8 @@
 package vitalitus.springtestproject.mapper;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -10,6 +12,7 @@ import vitalitus.springtestproject.dto.BookDto;
 import vitalitus.springtestproject.dto.BookDtoWithoutCategoryIds;
 import vitalitus.springtestproject.dto.CreateBookRequestDto;
 import vitalitus.springtestproject.model.Book;
+import vitalitus.springtestproject.model.Category;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
@@ -24,6 +27,15 @@ public interface BookMapper {
 
     BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
 
+    @AfterMapping
+    default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
+        if (book.getCategories() != null) {
+            bookDto.setCategoryIds(book.getCategories().stream()
+                    .map(Category::getId)
+                    .collect(Collectors.toList()));
+        }
+    }
+
     @Named("bookFromId")
     default Book bookFromId(Long id) {
         return Optional.ofNullable(id)
@@ -34,5 +46,4 @@ public interface BookMapper {
                 })
                 .orElse(null);
     }
-
 }

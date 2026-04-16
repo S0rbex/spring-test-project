@@ -15,13 +15,13 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE books SET is_deleted = true where id =?")
-@SQLRestriction(value = "is_deleted=false")
+@Where(clause = "is_deleted=false")
 @Table(name = "books")
 public class Book {
     @Id
@@ -41,7 +41,7 @@ public class Book {
     private boolean isDeleted = false;
     @ManyToMany
     @JoinTable(
-            name = "books_categories",
+            name = "book_category",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )

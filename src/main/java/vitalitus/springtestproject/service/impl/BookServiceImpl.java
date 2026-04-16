@@ -27,9 +27,9 @@ import vitalitus.springtestproject.service.BookService;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
-    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -87,8 +87,8 @@ public class BookServiceImpl implements BookService {
         if (categoryIds != null && !categoryIds.isEmpty()) {
             List<Category> categories = categoryRepository.findAllById(categoryIds);
             if (categories.size() != categoryIds.size()) {
-                throw new EntityNotFoundException(
-                        "One or more categories not found by provided IDs");
+                throw new EntityNotFoundException("One or more categories "
+                        + "not found by provided IDs");
             }
             book.setCategories(new HashSet<>(categories));
         } else {

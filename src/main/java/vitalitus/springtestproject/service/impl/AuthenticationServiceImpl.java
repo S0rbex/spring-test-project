@@ -16,9 +16,11 @@ import vitalitus.springtestproject.exception.RegistrationException;
 import vitalitus.springtestproject.mapper.UserMapper;
 import vitalitus.springtestproject.model.Role;
 import vitalitus.springtestproject.model.User;
+import vitalitus.springtestproject.repository.cart.ShoppingCartRepository;
 import vitalitus.springtestproject.repository.role.RoleRepository;
 import vitalitus.springtestproject.repository.user.UserRepository;
 import vitalitus.springtestproject.service.AuthenticationService;
+import vitalitus.springtestproject.service.ShoppingCartService;
 import vitalitus.springtestproject.util.JwtUtil;
 
 @Service
@@ -31,6 +33,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final ShoppingCartRepository shoppingCartRepository;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserDto registrationUser(CreateUserRequestDto userRequestDto) {
@@ -43,6 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Role userRole = roleRepository.findByName(Role.RoleName.ROLE_USER);
         user.setRoles(Set.of(userRole));
         userRepository.save(user);
+        shoppingCartService.registerNewShoppingCart(user);
         return userMapper.toDto(user);
     }
 
