@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponseDto updateOrderStatus(Long orderId, OrderStatusRequestDto status) {
         Order order = orderRepository.findById(orderId).orElseThrow(
-                () -> new NoSuchElementException("Can't find order by id: " + orderId));
+                () -> new EntityNotFoundException("Can't find order by id: " + orderId));
         order.setStatus(status.getStatus());
         return orderMapper.toDto(orderRepository.save(order));
     }
