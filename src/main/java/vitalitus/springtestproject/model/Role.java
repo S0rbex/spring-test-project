@@ -24,7 +24,6 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     private RoleName name;
 
     @Override
