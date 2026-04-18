@@ -28,6 +28,7 @@ import vitalitus.springtestproject.repository.order.OrderRepository;
 import vitalitus.springtestproject.service.OrderService;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
