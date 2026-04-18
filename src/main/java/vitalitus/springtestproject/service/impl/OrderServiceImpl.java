@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
                         () -> new NoSuchElementException("Can't find shopping cart by user id: "
                                 + user.getId()));
         if (cart.getCartItems().isEmpty()) {
-            throw new NoSuchElementException("Can't place order with empty cart");
+            throw new OrderProcessingException("Can't place order with empty cart");
         }
         Order order = new Order();
         order.setUser(user);
