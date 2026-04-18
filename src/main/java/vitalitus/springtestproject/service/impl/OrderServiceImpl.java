@@ -15,6 +15,7 @@ import vitalitus.springtestproject.dto.order.OrderRequestDto;
 import vitalitus.springtestproject.dto.order.OrderResponseDto;
 import vitalitus.springtestproject.dto.order.OrderStatusRequestDto;
 import vitalitus.springtestproject.exception.EntityNotFoundException;
+import vitalitus.springtestproject.exception.OrderProcessingException;
 import vitalitus.springtestproject.mapper.OrderItemMapper;
 import vitalitus.springtestproject.mapper.OrderMapper;
 import vitalitus.springtestproject.model.CartItem;
@@ -41,34 +42,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponseDto placeOrder(User user, OrderRequestDto orderRequestDto) {
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId())
-                .orElseThrow(
-                        () -> new NoSuchElementException("Can't find shopping cart by user id: "
-                                + user.getId()));
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Can't find shopping cart by user id: "
+                        + user.getId()));
         if (cart.getCartItems().isEmpty()) {
             throw new OrderProcessingException("Can't place order with empty cart");
         }
-        Order order = new Order();
-        order.setUser(user);
-        order.setStatus(Order.Status.PENDING);
-        order.setShippingAddress(orderRequestDto.getShippingAddress());
-        order.setOrderDate(LocalDateTime.now());
-        Set<OrderItem> orderItems = new HashSet<>();
-        BigDecimal total = BigDecimal.ZERO;
-        for (CartItem cartItem : cart.getCartItems()) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setBook(cartItem.getBook());
-            orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getBook().getPrice());
-            orderItem.setOrder(order);
-            orderItems.add(orderItem);
-            BigDecimal itemTotal = cartItem
-                    .getBook()
-                    .getPrice()
-                    .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
-            total = total.add(itemTotal);
-        }
-        order.setOrderItems(orderItems);
-        order.setTotal(total);
+        Order order = createOrderFromCart(cart, orderRequestDto.getShippingAddress());
         orderRepository.save(order);
         cart.getCartItems().clear();
         return orderMapper.toDto(order);
@@ -103,5 +83,33 @@ public class OrderServiceImpl implements OrderService {
                         "Can't find order item by id: " + itemId
                                 + " for order id: " + orderId
                 ));
+    }
+
+    private Order createOrderFromCart(ShoppingCart cart, String shippingAddress) {
+        Order order = new Order();
+        order.setUser(cart.getUser());
+        order.setStatus(Order.Status.PENDING);
+        order.setShippingAddress(shippingAddress);
+        order.setOrderDate(LocalDateTime.now());
+
+        BigDecimal total = BigDecimal.ZERO;
+        Set<OrderItem> orderItems = new HashSet<>();
+
+        for (CartItem cartItem : cart.getCartItems()) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setBook(cartItem.getBook());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setPrice(cartItem.getBook().getPrice());
+            orderItem.setOrder(order);
+            orderItems.add(orderItem);
+
+            BigDecimal itemTotal = cartItem.getBook().getPrice()
+                    .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
+            total = total.add(itemTotal);
+        }
+
+        order.setOrderItems(orderItems);
+        order.setTotal(total);
+        return order;
     }
 }
