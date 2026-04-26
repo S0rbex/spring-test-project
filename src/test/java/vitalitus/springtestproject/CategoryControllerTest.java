@@ -37,6 +37,15 @@ class CategoryControllerTest {
     @MockBean
     private CategoryService categoryService;
 
+    @MockBean
+    private BookService bookService;
+
+    @MockBean
+    private JwtUtil jwtUtil;
+
+    @MockBean
+    private UserDetailsService userDetailsService;
+
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     @DisplayName("Create category - returns created category")
