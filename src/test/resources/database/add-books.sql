@@ -1,0 +1,2 @@
+INSERT INTO books (id, title, author, isbn, price, description, cover_image, is_deleted) VALUES (1, 'Test Book', 'Test Author', '978-3-16-148410-0', 1000, 'Test Description', 'test-cover.jpg', false);
+INSERT INTO books_categories (book_id, category_id) VALUES (1, 1);
