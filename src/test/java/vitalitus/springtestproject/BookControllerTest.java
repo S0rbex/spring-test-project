@@ -37,6 +37,12 @@ class BookControllerTest {
     @MockBean
     private BookService bookService;
 
+    @MockBean
+    private JwtUtil jwtUtil;
+
+    @MockBean
+    private UserDetailsService userDetailsService;
+
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     @DisplayName("Create book - returns created book")
