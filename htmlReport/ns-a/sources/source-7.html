@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ShoppingCart</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">vitalitus.springtestproject.model</a>
+</div>
+
+<h1>Coverage Summary for Class: ShoppingCart (vitalitus.springtestproject.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShoppingCart</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28,6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateInstantiator$2vNnoptX</td>
+  </tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateInstantiator$2xMKeUom</td>
+  </tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateInstantiator$rFewAfKe</td>
+  </tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateProxy$D5vuuI1D</td>
+  </tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateProxy$iU6kD83g</td>
+  </tr>
+  <tr>
+    <td class="name">ShoppingCart$HibernateProxy$SNG2EGKH</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28,6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package vitalitus.springtestproject.model;
+&nbsp;
+&nbsp;import jakarta.persistence.CascadeType;
+&nbsp;import jakarta.persistence.Column;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.FetchType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.JoinColumn;
+&nbsp;import jakarta.persistence.MapsId;
+&nbsp;import jakarta.persistence.OneToMany;
+&nbsp;import jakarta.persistence.OneToOne;
+&nbsp;import jakarta.persistence.Table;
+&nbsp;import java.util.Set;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.Setter;
+&nbsp;import org.hibernate.annotations.SQLDelete;
+&nbsp;import org.hibernate.annotations.SQLRestriction;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Getter
+<b class="nc">&nbsp;@Setter</b>
+&nbsp;@SQLDelete(sql = &quot;UPDATE shopping_carts SET is_deleted = true WHERE id = ?&quot;)
+&nbsp;@SQLRestriction(value = &quot;is_deleted=false&quot;)
+&nbsp;@Table(name = &quot;shopping_carts&quot;)
+<b class="fc">&nbsp;public class ShoppingCart {</b>
+&nbsp;    @Id
+<b class="nc">&nbsp;    private Long id;</b>
+&nbsp;    @OneToOne(fetch = FetchType.LAZY)
+&nbsp;    @MapsId
+&nbsp;    @JoinColumn(name = &quot;user_id&quot;, nullable = false)
+<b class="nc">&nbsp;    private User user;</b>
+&nbsp;    @OneToMany(mappedBy = &quot;shoppingCart&quot;, cascade = CascadeType.ALL, orphanRemoval = true)
+<b class="nc">&nbsp;    private Set&lt;CartItem&gt; cartItems;</b>
+<b class="fc">&nbsp;    @Column(nullable = false)</b>
+<b class="nc">&nbsp;    private boolean isDeleted = false;</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-26 17:56</div>
+</div>
+</body>
+</html>

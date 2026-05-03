@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ShoppingCartRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">vitalitus.springtestproject.repository.cart</a>
+</div>
+
+<h1>Coverage Summary for Class: ShoppingCartRepository (vitalitus.springtestproject.repository.cart)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ShoppingCartRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package vitalitus.springtestproject.repository.cart;
+&nbsp;
+&nbsp;import java.util.Optional;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import vitalitus.springtestproject.model.ShoppingCart;
+&nbsp;
+&nbsp;public interface ShoppingCartRepository extends JpaRepository&lt;ShoppingCart, Long&gt; {
+&nbsp;    @Query(&quot;SELECT sc &quot;
+&nbsp;            + &quot;FROM ShoppingCart sc &quot;
+&nbsp;            + &quot;LEFT JOIN FETCH sc.cartItems i &quot;
+&nbsp;            + &quot;LEFT JOIN FETCH i.book WHERE sc.user.id = :userId&quot;)
+&nbsp;    Optional&lt;ShoppingCart&gt; findByUserId(Long userId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-26 17:56</div>
+</div>
+</body>
+</html>

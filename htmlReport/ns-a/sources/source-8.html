@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">vitalitus.springtestproject.model</a>
+</div>
+
+<h1>Coverage Summary for Class: User (vitalitus.springtestproject.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (3/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">User$HibernateInstantiator$7Rz8sKSm</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateInstantiator$JSfbaFGc</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateInstantiator$RQBw6bH9</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$EBWPGopK</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$GYH0qXg1</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$kunv8DuH</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    6,2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (3/18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package vitalitus.springtestproject.model;
+&nbsp;
+&nbsp;import jakarta.persistence.Column;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.GeneratedValue;
+&nbsp;import jakarta.persistence.GenerationType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.JoinColumn;
+&nbsp;import jakarta.persistence.JoinTable;
+&nbsp;import jakarta.persistence.ManyToMany;
+&nbsp;import jakarta.persistence.Table;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.Set;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.Setter;
+&nbsp;import org.hibernate.annotations.SQLDelete;
+&nbsp;import org.hibernate.annotations.SQLRestriction;
+&nbsp;import org.springframework.security.core.GrantedAuthority;
+&nbsp;import org.springframework.security.core.userdetails.UserDetails;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Getter
+<b class="nc">&nbsp;@Setter</b>
+&nbsp;@SQLDelete(sql = &quot;UPDATE users SET is_deleted = true where id =?&quot;)
+&nbsp;@SQLRestriction(&quot;is_deleted = false&quot;)
+&nbsp;@Table(name = &quot;users&quot;)
+<b class="fc">&nbsp;public class User implements UserDetails {</b>
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<b class="nc">&nbsp;    private Long id;</b>
+&nbsp;    @Column(nullable = false, unique = true)
+<b class="nc">&nbsp;    private String email;</b>
+&nbsp;    @Column(nullable = false)
+<b class="nc">&nbsp;    private String password;</b>
+&nbsp;    @Column(nullable = false)
+<b class="nc">&nbsp;    private String firstName;</b>
+&nbsp;    @Column(nullable = false)
+<b class="nc">&nbsp;    private String lastName;</b>
+<b class="nc">&nbsp;    private String shippingAddress;</b>
+<b class="fc">&nbsp;    @Column(nullable = false, columnDefinition = &quot;TINYINT(1)&quot;)</b>
+<b class="nc">&nbsp;    private boolean isDeleted = false;</b>
+<b class="fc">&nbsp;    @ManyToMany</b>
+&nbsp;    @JoinTable(
+&nbsp;            name = &quot;users_roles&quot;,
+&nbsp;            joinColumns = @JoinColumn(name = &quot;user_id&quot;),
+&nbsp;            inverseJoinColumns = @JoinColumn(name = &quot;role_id&quot;)
+&nbsp;    )
+<b class="nc">&nbsp;    private Set&lt;Role&gt; roles = new HashSet&lt;&gt;();</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<b class="nc">&nbsp;        return roles;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getUsername() {
+<b class="nc">&nbsp;        return email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isAccountNonExpired() {
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isAccountNonLocked() {
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isCredentialsNonExpired() {
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isEnabled() {
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-26 17:56</div>
+</div>
+</body>
+</html>
