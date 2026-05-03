@@ -35,4 +35,4 @@ build/
 # Local configuration
 src/main/resources/application.properties
 .env
-/htmlreport/
+/htmlReport/
