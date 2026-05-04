@@ -21,11 +21,39 @@ The application is structured around several core controllers that manage specif
 * **`BookController` / `ProductController`**: Exposes CRUD operations for the main entities. Public endpoints allow searching and filtering, while creation, updates, and deletions are strictly restricted to `ADMIN` roles.
 * **`ShoppingCartController`**: Manages the user's active session state. Authenticated users can add items to their cart, update quantities, and clear their cart.
 * **`OrderController`**: Processes the checkout flow, converting a shopping cart into a finalized order and allowing users to view their historical transactions.
+### 📍 API Endpoints
+
+| HTTP Method | Endpoint (Link) | Short Description | Applicable Role   |
+| :--- | :--- | :--- |:------------------|
+| **Authentication & Registration** | | |                   |
+| `POST` | `/api/auth/registration` | Register a new user account | `PUBLIC`          |
+| `POST` | `/api/auth/login` | Authenticate user and return JWT token | `PUBLIC`          |
+| **Books Management** | | |                   |
+| `GET` | `/api/books` | Get a paginated list of all available books |  `USER` |
+| `GET` | `/api/books/{id}` | Get detailed information about a specific book |   `USER`  |
+| `POST` | `/api/books` | Create a new book entry in the catalog | `ADMIN`           |
+| `PUT` | `/api/books/{id}` | Update an existing book's details | `ADMIN`           |
+| `DELETE` | `/api/books/{id}` | Soft delete a book from the catalog | `ADMIN`           |
+| **Categories Management** | | |                   |
+| `GET` | `/api/categories` | Get a list of all book categories |  `USER` |
+| `GET` | `/api/categories/{id}/books` | Get all books belonging to a specific category |  `USER` |
+| `POST` | `/api/categories` | Create a new category | `ADMIN`           |
+| `PUT` | `/api/categories/{id}` | Update an existing category | `ADMIN`           |
+| `DELETE` | `/api/categories/{id}` | Soft delete a category | `ADMIN`           |
+| **Shopping Cart** | | |                   |
+| `GET` | `/api/cart` | Retrieve the authenticated user's shopping cart | `USER`            |
+| `POST` | `/api/cart` | Add a book to the shopping cart | `USER`            |
+| `PUT` | `/api/cart/cart-items/{cartItemId}` | Update the quantity of a specific item in the cart | `USER`            |
+| `DELETE`| `/api/cart/cart-items/{cartItemId}` | Remove a book from the shopping cart | `USER`            |
+| **Order Processing** | | |                   |
+| `POST` | `/api/orders` | Checkout the current cart and place an order | `USER`            |
+| `GET` | `/api/orders` | Get the order history for the authenticated user | `USER`            |
+| `GET` | `/api/orders/{orderId}/items` | Get a list of items for a specific order | `USER`            |
+| `PATCH` | `/api/orders/{id}` | Update the status of an order (e.g., PENDING to COMPLETED) | `ADMIN`           |
 
 ## 📊 Visual Architecture
-*(Tip: Replace this placeholder with a screenshot of your Swagger UI or an Entity-Relationship Diagram (ERD))*
 
-![Swagger API Documentation](docs/swagger-ui-screenshot.png)
+![ER діаграма бази даних](images/ERD.png)
 
 ## 🚀 Setup and Installation
 To run this project locally, ensure you have **Java**, **Maven**, and **Docker** installed.
