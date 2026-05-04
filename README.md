@@ -97,4 +97,6 @@ To make testing easier and more interactive, a comprehensive Postman collection 
 
 ---
 *Developed with dedication by Vitalii.*
+
+[Коротке DEMO автентифікації](https://www.loom.com/share/0acd5a017f5f45acba77b6ed899ae6e0)
    
