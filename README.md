@@ -53,7 +53,7 @@ The application is structured around several core controllers that manage specif
 
 ## 📊 Visual Architecture
 
-![ER діаграма бази даних](images/ERD.png)
+![ER diagrams](images/ERD.png)
 
 ## 🚀 Setup and Installation
 To run this project locally, ensure you have **Java**, **Maven**, and **Docker** installed.
@@ -98,5 +98,5 @@ To make testing easier and more interactive, a comprehensive Postman collection 
 ---
 *Developed with dedication by Vitalii.*
 
-[Коротке DEMO автентифікації](https://www.loom.com/share/0acd5a017f5f45acba77b6ed899ae6e0)
+[Small DEMO of authentication](https://www.loom.com/share/0acd5a017f5f45acba77b6ed899ae6e0)
    
